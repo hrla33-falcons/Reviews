@@ -1,0 +1,6 @@
+const foo = {
+  dbName: '',
+  pass: ''
+};
+
+// module.exports = foo;
