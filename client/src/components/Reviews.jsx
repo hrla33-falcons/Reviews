@@ -33,6 +33,9 @@ class Reviews extends Component {
       let rand = Math.floor(Math.random() * 100)
       console.log('This is id: ' + rand)
       const results = await axios.get(`/reviews/${rand}`);
+      const sortedResults = await results.data.sort((a,b) => {
+        return new Date(b.dateS) - new Date (a.dateS)
+      })
       const total = await results.data.reduce((a, b) => a + b.rating, 0) / results.data.length
       console.log(total);
       const allowedClicks = await Math.floor(results.data.length / 6);
@@ -50,7 +53,7 @@ class Reviews extends Component {
         })
       }
       this.setState({
-        reviews: results.data,
+        reviews: sortedResults,
         listTotal: total,
         adj: adj[Math.round(total - 1)],
         allowed: allowedClicks

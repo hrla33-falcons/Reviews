@@ -20,7 +20,7 @@ const ReviewSum = ({ rating, review, adjective }) => {
         </span>
       </div>
     </div>
-)
-}
+  );
+};
 
 export default ReviewSum;
