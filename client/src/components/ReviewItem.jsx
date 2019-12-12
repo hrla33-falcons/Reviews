@@ -3,38 +3,98 @@ import StarRating from 'react-star-ratings';
 import moment from 'moment';
 
 const ReviewItem = ({ review }) => {
-  return (
-    <div>
-      <h4>{review.title}</h4>
-      <div className="review_meta">
-        <span>
-          <span>{review.rating}/5 </span>
+
+  var owner_response_label = {
+    fontWeight: '700',
+    marginRight: '5px',
+    color: '#717171'
+  };
+
+  var owner_paragraph = {
+    display: 'block',
+    marginBlockStart: '1em',
+    marginBlockEnd: '1em',
+    marginInlineStart: '0px',
+    marginInlineEnd: '0px',
+    marginTop: '10px',
+    marginRight: '0px',
+    marginBottom: '16px',
+    marginLeft: '0px'
+  }
+
+  if (review.ownerR) {
+    return (
+      <div className="review_list">
+        <h4 className="review_title">{review.title}</h4>
+        <div className="review_meta">
           <span>
-            <StarRating rating={review.rating} starDimension="15px" starSpacing="0px" starRatedColor="black"/>
+            <span className="review_rating_score">{review.rating}/5 </span>
+            <span>
+              <StarRating rating={review.rating} starDimension="15px" starSpacing="0px" starRatedColor="#323e4d"/>
+            </span>
           </span>
-        </span>
-        <span>
-          <span> Stayed </span>
-          <span>{moment(`${review.dateS}`).format('MMMM YYYY')}</span>
-        </span>
-      </div>
-      <div className="author">
-        <div>
-          <span>{review.author} </span>
-          <span>{review.aLocation}</span>
+          <span className="author_stay_date">
+            <span> Stayed </span>
+            <span>{moment(`${review.dateS}`).format('MMMM YYYY')}</span>
+          </span>
+        </div>
+        <div className="author">
+          <div>
+            <span className="review_author">{review.author} </span>
+            <span className="review_author_loc">{review.aLocation}</span>
+          </div>
+        </div>
+        <div className="review_paragraph">
+          <p>{review.review}</p>
+        </div>
+        <div className="review_footer">
+          <div>
+            <span>Published </span>
+            <span>{moment(`${review.dateP}`).format('LL')}</span>
+          </div>
+        </div>
+        <div className="review_response">
+          <span style={owner_response_label}>Owner's Response:</span>
+          <span>
+            <p style={owner_paragraph}>{review.ownerR}</p>
+          </span>
         </div>
       </div>
-      <div className="review">
-        <p>{review.review}</p>
-      </div>
-      <div className="review_footer">
-        <div>
-          <span>Published </span>
-          <span>{moment(`${review.dateP}`).format('LL')}</span>
+    );
+  } else {
+    return (
+      <div className="review_list">
+        <h4 className="review_title">{review.title}</h4>
+        <div className="review_meta">
+          <span>
+            <span className="review_rating_score" >{review.rating}/5 </span>
+            <span>
+              <StarRating rating={review.rating} starDimension="15px" starSpacing="0px" starRatedColor="#323e4d"/>
+            </span>
+          </span>
+          <span className="author_stay_date">
+            <span> Stayed </span>
+            <span>{moment(`${review.dateS}`).format('MMMM YYYY')}</span>
+          </span>
+        </div>
+        <div className="author">
+          <div>
+            <span className="review_author">{review.author} </span>
+            <span className="review_author_loc">{review.aLocation}</span>
+          </div>
+        </div>
+        <div className="review">
+          <p>{review.review}</p>
+        </div>
+        <div className="review_footer">
+          <div>
+            <span>Published </span>
+            <span>{moment(`${review.dateP}`).format('LL')}</span>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default ReviewItem;

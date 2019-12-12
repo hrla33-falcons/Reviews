@@ -14,7 +14,7 @@ genReview = async () => {
       randOwn = Math.floor(Math.random() * 11);
       randLoc = Math.floor(Math.random() * 4);
       revObj = {};
-      revObj.rating = Math.floor(Math.random() * 6);
+      revObj.rating = Math.floor(Math.random() * 5) + 1;
       revObj.dateS = faker.date.between('2005-2-1', '2019-12-7');
       revObj.title = faker.lorem.sentence();
       revObj.review = faker.lorem.paragraph();

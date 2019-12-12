@@ -1,0 +1,126 @@
+.review_btn {
+  padding: 0;
+  border: none;
+  background: none;
+  border-radius: 50%;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.review_btn:hover {
+  background: #0067db;
+  height: auto;
+  width: auto;
+}
+
+.review_container {
+  font-family: "Lato","Noto Sans JP","Noto Sans KR","Lucida Grande","Segoe UI","Tahoma","sans-serif";
+  background-color: #fff;
+  color: #717171;
+  margin-top: 58px;
+  padding-top: 32px;
+}
+
+.review_paragraph {
+  font-size: 16px;
+  line-height: 1.5em;
+}
+
+.review_list {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: rgb(221, 221, 222);
+}
+
+.review_response {
+  background-color: #f9f8f7;
+  border-radius: 4px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  padding: 16px;
+}
+
+.review_pagination {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  margin-top: 32px;
+}
+
+.review_author {
+  font-weight: 700;
+  margin-right: .5rem;
+  letter-spacing: .2px;
+  margin-bottom: 16px;
+  color: #717171;
+  font-size: 14px;
+}
+
+.review_author_loc {
+  letter-spacing: .2px;
+  color: #717171;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.review_footer {
+  align-items: center;
+  color: #717171;
+  font-size: 14px;
+  margin: 24px 0 0;
+  margin-top: 24px;
+  margin-right: 0px;
+  margin-bottom: 10px;
+  margin-left: 0px;
+}
+
+.review_title {
+  margin-bottom: 1px;
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  margin-top: 0;
+  font-weight: 700;
+  color: #292929;
+  display: block;
+  margin-block-start: .5em;
+  margin-block-end: .5em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+.author_stay_date {
+  color: #717171;
+  font-size: 14px;
+  line-height: 1.5rem;
+}
+
+.review_sum_header {
+  display: inline-block;
+  font-style: italic;
+  margin-left: 10px;
+  font-size: .875rem;
+  line-height: 1.125rem;
+}
+
+.review_rating_score {
+  font-size: .875rem;
+  line-height: 1.125rem;
+}
+
+.review_out {
+  color: #2a2a2a;
+  font-weight: bold;
+}
+
+.review_total {
+  font-weight: 700;
+  color: #292929;
+}

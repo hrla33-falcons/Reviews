@@ -13,10 +13,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/reviews/:id', (req, res) => {
-  Reviews.findAll().then((data)=> {
-    res.status(200).send(data);
-  }).catch((e) => {
-    res.status(404).send(e);
+  Reviews.findAll({ where: { ListingId: req.params.id } })
+    .then((data)=> {
+      res.status(200).send(data);
+    }).catch((e) => {
+      res.status(404).send(e);
   });
 });
 
