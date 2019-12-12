@@ -7,7 +7,7 @@ genReview = async () => {
   let ownerProb = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   let locationProb = [1, 2, 3];
   for (var j = 0; j < 101; j++) {
-    let randRev = Math.floor(Math.random() * 10);
+    let randRev = Math.floor(Math.random() * 11);
     listReviews = [];
 
     for (i = 0; i < randRev; i++) {

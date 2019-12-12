@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Reviews = require('../db/data').Reviews;
-const Listings = require('../db/data').Listings
 const path = require('path');
 
 
@@ -12,13 +11,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.get('/reviews/:id', (req, res) => {
-  Reviews.findAll({ where: { ListingId: req.params.id } })
-    .then((data)=> {
-      res.status(200).send(data);
-    }).catch((e) => {
-      res.status(404).send(e);
-  });
+app.get('/reviews/:id', async (req, res) => {
+  try {
+    const data = await Reviews.findAll({ where: { ListingId: req.params.id } })
+
+    if(!data){
+      res.status(404).send()
+    }
+
+    res.status(200).send(data)
+  } catch (e) {
+    res.status(500).res.send(e)
+  }
 });
 
 app.listen(port, () => {

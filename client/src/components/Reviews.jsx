@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { FaChevronCircleLeft, FaChevronCircleRight } from 'react-icons/fa';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import ReviewItem from './ReviewItem.jsx';
 import ReviewSum from './ReviewSum.jsx';
