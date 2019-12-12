@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { FaChevronCircleLeft, FaChevronCircleRight } from 'react-icons/fa';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import ReviewItem from './ReviewItem.jsx';
 import ReviewSum from './ReviewSum.jsx';
 
@@ -35,9 +36,16 @@ class Reviews extends Component {
       const results = await axios.get(`/reviews/${rand}`);
       const total = await results.data.reduce((a, b) => a + b.rating, 0) / results.data.length
       console.log(total);
-      const allowedClicks = await Math.floor(results.data.length / 6)
+      const allowedClicks = await Math.floor(results.data.length / 6);
       console.log('allowed:' + allowedClicks)
       if (allowedClicks < 1) {
+        this.setState({
+          addDis: true
+        })
+      }
+      if (results.data.length === 36){
+        allowedClicks--
+      } else if ( allowedClicks === 1 && reviews.data.length !== 10) {
         this.setState({
           addDis: true
         })
@@ -148,14 +156,14 @@ class Reviews extends Component {
           <ReviewSum rating={this.state.listTotal} review={reviews} adjective={adj}/>
         <div className="review_pagination" >
       <button className="review_btn"onClick={this.handleMinusClick} disabled={minusDis}>
-        <FaChevronCircleLeft color={"#e6e6e7"} size={40} />
+        <FiChevronLeft color={minusDis ? "#ddddde" : "#717171"} size={16} />
       </button>
         <span>
           <strong className="review_out">{`${indexOfFirstReview + 1}-${length}`}</strong>
            {` of ${reviews.length}`}
           </span>
         <button className="review_btn" onClick={this.handleAddClick} disabled={addDis}>
-          <FaChevronCircleRight color={"#e6e6e7"} size={40}/>
+          <FiChevronRight color={addDis ? "#ddddde" : "#717171"} size={16}/>
         </button>
         </div>
         <div>
@@ -166,7 +174,7 @@ class Reviews extends Component {
           this.handleMinusClick();
           this.handleScroll();
         }} disabled={minusDis}>
-        <FaChevronCircleLeft color={"#e6e6e7"} size={40} />
+        <FiChevronLeft color={minusDis ? "#ddddde" : "#717171"} size={16} />
       </button>
         <span>
           <strong className="review_out">
@@ -177,7 +185,7 @@ class Reviews extends Component {
           this.handleAddClick();
           this.handleScroll();
         }} disabled={addDis}>
-          <FaChevronCircleRight color={"#e6e6e7"} size={40} />
+          <FiChevronRight color={addDis ? "#ddddde" : "#717171"} size={16} />
         </button>
         </div>
         </div>

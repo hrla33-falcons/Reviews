@@ -1,5 +1,27 @@
 .review_btn {
   padding: 0;
+  background-color: #fff;
+  background: none;
+  border:.5px solid #908f8f;
+  border-radius: 50%;
+  -moz-border-radius:50%;
+  -webkit-border-radius:50%;
+  outline: none;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 .5px #908f8f;
+  transition: all .25s ease-in-out;
+  transition-property: all;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0s;
+}
+
+/* padding: 0;
   border: none;
   background: none;
   border-radius: 50%;
@@ -7,17 +29,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-}
+  cursor: pointer; */
 
 .review_btn:hover {
-  background: #0067db;
-  height: auto;
-  width: auto;
+  background: none;
+  border: 1px solid #0067db;
+  transition: all .25s ease-in-out;
+  transition-property: all;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0s;
+  box-shadow: inset 0 0 0 1px #0067db;
 }
 
 .review_btn:disabled {
-  background-color: #ddddde;
+  border: .5px solid #ddddde;
+  box-shadow: inset 0 0 0 .5px #ddddde;
 }
 
 .review_container {
