@@ -30,7 +30,9 @@ class Reviews extends Component {
   getReviews = async () => {
     try {
       let adj = ['Terrible', 'Poor', 'Good', 'Wonderful', 'Excellent'];
-      const results = await axios.get(`/reviews/${Math.floor(Math.random() * 100)}`);
+      let rand = Math.floor(Math.random() * 100)
+      console.log('This is id: ' + rand)
+      const results = await axios.get(`/reviews/${rand}`);
       const total = await results.data.reduce((a, b) => a + b.rating, 0) / results.data.length
       console.log(total);
       const allowedClicks = await Math.floor(results.data.length / 6)
@@ -116,62 +118,73 @@ class Reviews extends Component {
 
 
   render() {
-    let length;
-    const { reviews, currentPage, reviewPerPage, adj, minusDis, addDis } = this.state;
-    const indexOfLastReview = currentPage * reviewPerPage;
-    const indexOfFirstReview = indexOfLastReview - reviewPerPage;
-    const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
-    if (indexOfLastReview > reviews.length) {
-      length = reviews.length
-    } else if (indexOfLastReview <= reviews.length){
-      length = indexOfLastReview
+
+    if (this.state.reviews.length === 0) {
+      return (
+        <div className="no_reviews">
+          <span>No Reviews yet...</span>
+          </div>
+      )
+    } else {
+      let length;
+      const { reviews, currentPage, reviewPerPage, adj, minusDis, addDis } = this.state;
+      const indexOfLastReview = currentPage * reviewPerPage;
+      const indexOfFirstReview = indexOfLastReview - reviewPerPage;
+      const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
+      if (indexOfLastReview > reviews.length) {
+        length = reviews.length
+      } else if (indexOfLastReview <= reviews.length){
+        length = indexOfLastReview
+      }
+
+      const renderReviews = currentReviews.map((review, index) => {
+        return <ReviewItem review={review} key={index}/>
+      })
+
+
+      return (
+        <div className="review_container">
+          <span ref={this.topButtons}></span>
+          <ReviewSum rating={this.state.listTotal} review={reviews} adjective={adj}/>
+        <div className="review_pagination" >
+      <button className="review_btn"onClick={this.handleMinusClick} disabled={minusDis}>
+        <FaChevronCircleLeft color={"#e6e6e7"} size={40} />
+      </button>
+        <span>
+          <strong className="review_out">{`${indexOfFirstReview + 1}-${length}`}</strong>
+           {` of ${reviews.length}`}
+          </span>
+        <button className="review_btn" onClick={this.handleAddClick} disabled={addDis}>
+          <FaChevronCircleRight color={"#e6e6e7"} size={40}/>
+        </button>
+        </div>
+        <div>
+          {renderReviews}
+        </div>
+        <div className="review_pagination">
+      <button className="review_btn" onClick={() => {
+          this.handleMinusClick();
+          this.handleScroll();
+        }} disabled={minusDis}>
+        <FaChevronCircleLeft color={"#e6e6e7"} size={40} />
+      </button>
+        <span>
+          <strong className="review_out">
+          {`${indexOfFirstReview + 1}-${length}`}</strong>
+           {` of ${reviews.length}`}
+        </span>
+        <button className="review_btn" onClick={() => {
+          this.handleAddClick();
+          this.handleScroll();
+        }} disabled={addDis}>
+          <FaChevronCircleRight color={"#e6e6e7"} size={40} />
+        </button>
+        </div>
+        </div>
+      );
+
     }
 
-    const renderReviews = currentReviews.map((review, index) => {
-      return <ReviewItem review={review} key={index}/>
-    })
-
-
-    return (
-      <div className="review_container">
-        <span ref={this.topButtons}></span>
-        <ReviewSum rating={this.state.listTotal} review={reviews} adjective={adj}/>
-      <div className="review_pagination" >
-    <button className="review_btn"onClick={this.handleMinusClick} disabled={minusDis}>
-      <FaChevronCircleLeft color={"#e6e6e7"} size={40} />
-    </button>
-      <span>
-        <strong className="review_out">{`${indexOfFirstReview + 1}-${length}`}</strong>
-         {` of ${reviews.length}`}
-        </span>
-      <button className="review_btn" onClick={this.handleAddClick} disabled={addDis}>
-        <FaChevronCircleRight color={"#e6e6e7"} size={40}/>
-      </button>
-      </div>
-      <div>
-        {renderReviews}
-      </div>
-      <div className="review_pagination">
-    <button className="review_btn" onClick={() => {
-        this.handleMinusClick();
-        this.handleScroll();
-      }} disabled={minusDis}>
-      <FaChevronCircleLeft color={"#e6e6e7"} size={40} />
-    </button>
-      <span>
-        <strong className="review_out">
-        {`${indexOfFirstReview + 1}-${length}`}</strong>
-         {` of ${reviews.length}`}
-      </span>
-      <button className="review_btn" onClick={() => {
-        this.handleAddClick();
-        this.handleScroll();
-      }} disabled={addDis}>
-        <FaChevronCircleRight color={"#e6e6e7"} size={40} />
-      </button>
-      </div>
-      </div>
-    );
   }
 
 }

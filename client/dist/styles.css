@@ -16,6 +16,10 @@
   width: auto;
 }
 
+.review_btn:disabled {
+  background-color: #ddddde;
+}
+
 .review_container {
   font-family: "Lato","Noto Sans JP","Noto Sans KR","Lucida Grande","Segoe UI","Tahoma","sans-serif";
   background-color: #fff;
@@ -123,4 +127,15 @@
 .review_total {
   font-weight: 700;
   color: #292929;
+}
+
+.no_reviews {
+  background-color: #f9f8f7;
+  border-radius: 4px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  padding: 16px;
+  font-family: "Lato","Noto Sans JP","Noto Sans KR","Lucida Grande","Segoe UI","Tahoma","sans-serif";
+  font-weight: 700;
+  text-align: center;
 }
