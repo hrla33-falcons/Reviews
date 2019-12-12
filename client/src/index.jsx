@@ -3,4 +3,4 @@ import ReactDOM from 'react-dom';
 import Reviews from './components/Reviews.jsx';
 
 
-ReactDOM.render(<Reviews/>, document.getElementById('root'));
+ReactDOM.render(<Reviews/>, document.getElementById('mg_root'));
