@@ -47,7 +47,7 @@ class Reviews extends Component {
       }
       if (results.data.length === 36){
         allowedClicks--
-      } else if ( allowedClicks === 1 && reviews.data.length !== 10) {
+      } else if ( allowedClicks === 1 && results.data.length !== 10) {
         this.setState({
           addDis: true
         })
