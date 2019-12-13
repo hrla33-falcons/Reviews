@@ -38,15 +38,15 @@ class Reviews extends Component {
       })
       const total = await results.data.reduce((a, b) => a + b.rating, 0) / results.data.length
       console.log(total);
-      const allowedClicks = await Math.floor(results.data.length / 6);
+      let allowedClicks = await Math.floor(results.data.length / 6);
       console.log('allowed:' + allowedClicks)
       if (allowedClicks < 1) {
         this.setState({
           addDis: true
         })
       }
-      if (results.data.length === 36){
-        allowedClicks--
+      if (allowedClicks === 6 || allowedClicks === 11){
+        allowedClicks = allowedClicks - 1;
       } else if ( allowedClicks === 1 && results.data.length !== 10) {
         this.setState({
           addDis: true

@@ -7,11 +7,11 @@ genReview = async () => {
   let revObj, randOwn, randLoc, listReviews, date;
   let ownerProb = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   let locationProb = [1, 2, 3];
-  for (var j = 0; j < 101; j++) {
-    let randRev = Math.floor(Math.random() * 11);
+  for (let j = 0; j < 101; j++) {
+    let randRev = Math.floor(Math.random() * 25);
     listReviews = [];
 
-    for (i = 0; i < randRev; i++) {
+    for (let i = 0; i < randRev; i++) {
       randOwn = Math.floor(Math.random() * 11);
       randLoc = Math.floor(Math.random() * 4);
       date = faker.date.between('2005-2-1', '2019-12-7');
@@ -34,15 +34,16 @@ genReview = async () => {
       }
       revObj.ListingId = j;
       listReviews.push(revObj);
-      await Reviews.sync({ force: false })
-        .then(() => {
-          Reviews.bulkCreate(listReviews, { validate: true });
-        }).then(() => {
-          console.log('review data created');
-        }).catch((e) => {
-          console.error('seeding function failed: ' + e);
-        });
     }
+    await Reviews.sync({ force: false })
+      .then(() => {
+        Reviews.bulkCreate(listReviews, { validate: true });
+        console.log(listReviews)
+      }).then(() => {
+        console.log('review data created');
+      }).catch((e) => {
+        console.error('seeding function failed: ' + e);
+      });
     }
 
 };

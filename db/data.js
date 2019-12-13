@@ -28,7 +28,7 @@ Reviews.init({
   },
   author: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   aLocation: {
     type: Sequelize.STRING,
