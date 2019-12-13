@@ -1,5 +1,6 @@
 const Reviews = require('./data').Reviews;
 const faker = require('faker');
+var moment = require('moment');
 
 
 genReview = async () => {
@@ -19,7 +20,11 @@ genReview = async () => {
       revObj.dateS = date;
       revObj.title = faker.lorem.sentence();
       revObj.review = faker.lorem.paragraph();
-      revObj.dateP = date;
+      if(locationProb[randLoc] === 2){
+        revObj.dateP = moment(date).add(1, 'M');
+      } else {
+        revObj.dateP = date;
+      }
       revObj.author = faker.name.findName();
       if (ownerProb[randOwn] === 4) {
         revObj.ownerR = faker.lorem.paragraph();

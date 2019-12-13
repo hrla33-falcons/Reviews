@@ -32,7 +32,7 @@ class Reviews extends Component {
       let adj = ['Terrible', 'Poor', 'Good', 'Wonderful', 'Excellent'];
       let rand = Math.floor(Math.random() * 100)
       console.log('This is id: ' + rand)
-      const results = await axios.get(`/reviews/${rand}`);
+      const results = await axios.get(`http://localhost/reviews/${rand}`);
       const sortedResults = await results.data.sort((a,b) => {
         return new Date(b.dateS) - new Date (a.dateS)
       })
@@ -70,6 +70,7 @@ class Reviews extends Component {
       clickNum: this.state.clickNum + 1
     }, () => {
       this.checkRange();
+      this.handleScroll();
       console.log('add current:' + this.state.currentPage)
       console.log('clicks: ' + this.state.clickNum)
     }
@@ -82,6 +83,7 @@ class Reviews extends Component {
       clickNum: this.state.clickNum - 1
     }, () => {
       this.checkRange();
+      this.handleScroll();
       console.log('minus current:' + this.state.currentPage)
       console.log('clicks: ' + this.state.clickNum)
     }
@@ -157,7 +159,7 @@ class Reviews extends Component {
           <span ref={this.topButtons}></span>
           <ReviewSum rating={this.state.listTotal} review={reviews} adjective={adj}/>
         <div className="review_pagination" >
-      <button className="review_btn"onClick={this.handleMinusClick} disabled={minusDis}>
+      <button className="review_btn" onClick={this.handleMinusClick} disabled={minusDis}>
         <FiChevronLeft color={minusDis ? "#ddddde" : "#717171"} size={16} />
       </button>
         <span>
@@ -172,10 +174,7 @@ class Reviews extends Component {
           {renderReviews}
         </div>
         <div className="review_pagination">
-      <button className="review_btn" onClick={() => {
-          this.handleMinusClick();
-          this.handleScroll();
-        }} disabled={minusDis}>
+      <button className="review_btn" onClick={this.handleMinusClick} disabled={minusDis}>
         <FiChevronLeft color={minusDis ? "#ddddde" : "#717171"} size={16} />
       </button>
         <span>
@@ -183,10 +182,7 @@ class Reviews extends Component {
           {`${indexOfFirstReview + 1}-${length}`}</strong>
            {` of ${reviews.length}`}
         </span>
-        <button className="review_btn" onClick={() => {
-          this.handleAddClick();
-          this.handleScroll();
-        }} disabled={addDis}>
+        <button className="review_btn" onClick={this.handleAddClick} disabled={addDis}>
           <FiChevronRight color={addDis ? "#ddddde" : "#717171"} size={16} />
         </button>
         </div>
