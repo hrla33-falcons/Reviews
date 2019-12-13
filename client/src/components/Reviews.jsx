@@ -32,7 +32,7 @@ class Reviews extends Component {
       let adj = ['Terrible', 'Poor', 'Good', 'Wonderful', 'Excellent'];
       let rand = Math.floor(Math.random() * 100)
       console.log('This is id: ' + rand)
-      const results = await axios.get(`http://localhost/reviews/${rand}`);
+      const results = await axios.get(`http://localhost:3004/reviews/${rand}`);
       const sortedResults = await results.data.sort((a,b) => {
         return new Date(b.dateS) - new Date (a.dateS)
       })
