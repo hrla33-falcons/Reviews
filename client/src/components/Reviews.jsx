@@ -40,17 +40,14 @@ class Reviews extends Component {
       console.log(total);
       let allowedClicks = await Math.floor(results.data.length / 6);
       console.log('allowed:' + allowedClicks)
-      if (allowedClicks < 1) {
+      if (results.data.length === 6 || allowedClicks === 0) {
         this.setState({
           addDis: true
         })
       }
-      if (allowedClicks === 6 || allowedClicks === 11){
+      if (results.data.length % 6 === 0) {
         allowedClicks = allowedClicks - 1;
-      } else if ( allowedClicks === 1 && results.data.length !== 10) {
-        this.setState({
-          addDis: true
-        })
+        console.log('new allowed clicks: ' + allowedClicks)
       }
       this.setState({
         reviews: sortedResults,
@@ -97,6 +94,10 @@ class Reviews extends Component {
         block: 'nearest'
       })
     }
+  }
+
+  componentDidUpdate() {
+    this.handleScroll();
   }
 
   checkRange() {
