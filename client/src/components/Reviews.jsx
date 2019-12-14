@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import ReviewItem from './ReviewItem.jsx';
 import ReviewSum from './ReviewSum.jsx';
+import Map from './Map.jsx'
 
 class Reviews extends Component {
   constructor(props) {
@@ -17,12 +18,15 @@ class Reviews extends Component {
       minusDis: true,
       addDis: false,
       allowed: 0,
-      clickNum: 0
+      clickNum: 0,
+      zip: undefined
     }
     this.getReviews = this.getReviews.bind(this);
     this.handleAddClick = this.handleAddClick.bind(this);
     this.handleMinusClick = this.handleMinusClick.bind(this);
     this.topButtons = React.createRef();
+    // kat's sticky nav ref
+    this.reviewsDiv = React.createRef();
     this.handleScroll = this.handleScroll.bind(this);
     this.checkRange = this.checkRange.bind(this);
   }
@@ -31,15 +35,17 @@ class Reviews extends Component {
     try {
       let adj = ['Terrible', 'Poor', 'Good', 'Wonderful', 'Excellent'];
       let rand = Math.floor(Math.random() * 100)
-      console.log('This is id: ' + rand)
+      //console.log('This is id: ' + rand)
       const results = await axios.get(`http://localhost:3004/reviews/${rand}`);
+      const zipResults = await axios.get(`http://localhost:3004/zips/${rand}`)
+      //console.log(zipResults.data[0].zipCode);
       const sortedResults = await results.data.sort((a,b) => {
         return new Date(b.dateS) - new Date (a.dateS)
       })
       const total = await results.data.reduce((a, b) => a + b.rating, 0) / results.data.length
-      console.log(total);
+      //console.log(total);
       let allowedClicks = await Math.floor(results.data.length / 6);
-      console.log('allowed:' + allowedClicks)
+      //console.log('allowed:' + allowedClicks)
       if (results.data.length === 6 || allowedClicks === 0) {
         this.setState({
           addDis: true
@@ -47,15 +53,16 @@ class Reviews extends Component {
       }
       if (results.data.length % 6 === 0) {
         allowedClicks = allowedClicks - 1;
-        console.log('new allowed clicks: ' + allowedClicks)
+        //console.log('new allowed clicks: ' + allowedClicks)
       }
       this.setState({
         reviews: sortedResults,
         listTotal: total,
         adj: adj[Math.round(total - 1)],
-        allowed: allowedClicks
+        allowed: allowedClicks,
+        zip: zipResults.data[0].zipCode
       });
-      console.log(results.data)
+      //console.log(results.data)
     } catch (err) {
       console.error('Could not fetch reviews: ' + err)
     }
@@ -68,8 +75,8 @@ class Reviews extends Component {
     }, () => {
       this.checkRange();
       this.handleScroll();
-      console.log('add current:' + this.state.currentPage)
-      console.log('clicks: ' + this.state.clickNum)
+      //console.log('add current:' + this.state.currentPage)
+      //console.log('clicks: ' + this.state.clickNum)
     }
     )
   }
@@ -81,8 +88,8 @@ class Reviews extends Component {
     }, () => {
       this.checkRange();
       this.handleScroll();
-      console.log('minus current:' + this.state.currentPage)
-      console.log('clicks: ' + this.state.clickNum)
+      //console.log('minus current:' + this.state.currentPage)
+      //console.log('clicks: ' + this.state.clickNum)
     }
     )
   }
@@ -106,7 +113,7 @@ class Reviews extends Component {
       this.setState({
         minusDis: false
       })
-      console.log('this is minusDis: ' + this.state.minusDis)
+      //console.log('this is minusDis: ' + this.state.minusDis)
     } else {
       this.setState({
         minusDis: true
@@ -156,6 +163,7 @@ class Reviews extends Component {
 
 
       return (
+        <div ref={this.reviewsDiv}>
         <div className="review_container">
           <span ref={this.topButtons}></span>
           <ReviewSum rating={this.state.listTotal} review={reviews} adjective={adj}/>
@@ -186,6 +194,10 @@ class Reviews extends Component {
         <button className="review_btn" onClick={this.handleAddClick} disabled={addDis}>
           <FiChevronRight color={addDis ? "#ddddde" : "#717171"} size={16} />
         </button>
+        </div>
+        </div>
+        <div>
+          <Map zip={this.state.zip}/>
         </div>
         </div>
       );

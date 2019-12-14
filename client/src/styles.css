@@ -21,16 +21,6 @@
   transition-delay: 0s;
 }
 
-/* padding: 0;
-  border: none;
-  background: none;
-  border-radius: 50%;
-  outline: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer; */
-
 .review_btn:hover {
   background: none;
   border: 1px solid #0067db;

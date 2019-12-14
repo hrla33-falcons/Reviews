@@ -1,6 +1,8 @@
 const Reviews = require('./data').Reviews;
+const Zips = require('./data').Zips;
 const faker = require('faker');
 var moment = require('moment');
+var zipcodes = require('zipcodes');
 
 
 genReview = async () => {
@@ -48,4 +50,26 @@ genReview = async () => {
 
 };
 
+genLocations = () => {
+  let zipCodeObj;
+  let zipArray =[];
+
+  for (let i =0; i < 101; i++){
+    zipCodeObj = {}
+    let randZip = zipcodes.random();
+    zipCodeObj.zipCode = randZip.zip
+    zipCodeObj.ListingId = i
+    zipArray.push(zipCodeObj)
+  }
+  Zips.sync({ force: true})
+  .then(() => {
+    Zips.bulkCreate(zipArray, { validate: true });
+  }).then(() => {
+    console.log('Zipcodes created')
+  }).catch((e) => {
+    console.error('Error: ' + e)
+  })
+}
+
 genReview();
+genLocations();

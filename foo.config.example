@@ -1,6 +1,7 @@
 const foo = {
   dbName: '',
-  pass: ''
+  pass: '',
+  map: ''
 };
 
 // module.exports = foo;

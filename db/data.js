@@ -7,6 +7,7 @@ const sequelize = new Sequelize('reviews', foo.dbName, foo.pass, {
 });
 
 class Reviews extends Sequelize.Model {}
+class Zips extends Sequelize.Model {}
 Reviews.init({
   rating: {
     type: Sequelize.INTEGER,
@@ -45,6 +46,17 @@ Reviews.init({
   }
 }, {sequelize, modelName: 'Reviews'});
 
+Zips.init({
+  zipCode: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  ListingId: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  }
+}, {sequelize, modelName: 'Zips'});
+
 
 sequelize
   .authenticate()
@@ -56,3 +68,4 @@ sequelize
   });
 
 module.exports.Reviews = Reviews;
+module.exports.Zips = Zips;
