@@ -19,7 +19,7 @@ class Reviews extends Component {
       addDis: false,
       allowed: 0,
       clickNum: 0,
-      zip: undefined
+      zip: '90210'
     }
     this.getReviews = this.getReviews.bind(this);
     this.handleAddClick = this.handleAddClick.bind(this);
