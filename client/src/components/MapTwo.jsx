@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import foo from '../../../foo.config';
-import zipcodes from 'zipcodes';
+import GoogleMapReact from 'google-map-react';
+import Icon from './Icon.jsx';
 import { GoLocation } from 'react-icons/go';
+import zipcodes from 'zipcodes';
 
-const Map = ({ zip }) => {
-  //console.log(zip)
-  let addressObj = zipcodes.lookup(zip);
+const MapTwo = (props) => {
+  let addressObj = zipcodes.lookup(props.zip);
 
   var map_title = {
     fontWeight: '700',
@@ -36,8 +37,9 @@ const Map = ({ zip }) => {
     height: '65vh'
   };
 
-  //console.log('this is address obj: ' + addressObj)
+
   return (
+
     <div>
       <h2>
         <span style={map_title}>
@@ -45,13 +47,24 @@ const Map = ({ zip }) => {
         </span>
       </h2>
       <div style={map_iframe_container}>
-        <iframe
-          width={'100%'}
-          height={'100%'}
-          frameBorder={0} style={{border: 0, zindex: -1, border: 'none'}}
-          src={`https://www.google.com/maps/embed/v1/place?key=${foo.map}
-            &q=${addressObj.city}+${addressObj.country}`} allowFullScreen>
-        </iframe>
+        <div style={{ height: '100%', width: '100%' }}>
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: foo.map }}
+            google={props.google}
+            defaultZoom={11}
+            zoom={11}
+            options={{
+              panControl: true,
+              mapTypeControl: true,
+              scrollwheel: true,
+              fullscreenControl: false,
+              streetViewControl: true
+            }}
+            defaultCenter={{ lat: addressObj.latitude, lng: addressObj.longitude}}
+          >
+            <Icon lat={addressObj.latitude} lng={addressObj.longitude} />
+          </GoogleMapReact>
+        </div>
       </div>
       <div style={{marginTop: '6px'}}>
         <span>
@@ -63,6 +76,6 @@ const Map = ({ zip }) => {
       </div>
     </div>
   );
-};
+}
 
-export default Map;
+export default MapTwo;

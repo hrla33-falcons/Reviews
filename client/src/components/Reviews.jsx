@@ -3,7 +3,8 @@ import axios from 'axios';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import ReviewItem from './ReviewItem.jsx';
 import ReviewSum from './ReviewSum.jsx';
-import Map from './Map.jsx'
+// import Map from './Map.jsx';
+import MapTwo from './MapTwo.jsx';
 
 class Reviews extends Component {
   constructor(props) {
@@ -196,8 +197,11 @@ class Reviews extends Component {
         </button>
         </div>
         </div>
-        <div>
+        {/* <div>
           <Map zip={this.state.zip}/>
+        </div> */}
+        <div>
+          <MapTwo zip={this.state.zip}/>
         </div>
         </div>
       );
